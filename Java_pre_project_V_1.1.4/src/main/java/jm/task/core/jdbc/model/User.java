@@ -3,6 +3,7 @@ package jm.task.core.jdbc.model;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.StringJoiner;
 
 @Table
 public class User {
@@ -26,6 +27,11 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return new String("[id=" + id + ", name=" + name + ", lastName=" + lastName + ", age=" + age + "]");
     }
 
     public Long getId() {
