@@ -20,8 +20,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
         try {
 
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `user`.`user` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(45) NOT NULL,`lastName` VARCHAR(45) NOT NULL,`age` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);");
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS user (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(45) NOT NULL,`lastName` VARCHAR(45) NOT NULL,`age` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);");
 
         } catch (SQLException e){
 
@@ -33,8 +33,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
         try {
 
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DROP TABLE `user`.`user`;");
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DROP TABLE user;");
 
         } catch (SQLException e){
 
@@ -47,11 +47,11 @@ public class UserDaoJDBCImpl implements UserDao {
 
         try {
 
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO `user`.`user` (name, lastname, age) VALUES (?,?,?)");
-            stmt.setString(1, name);
-            stmt.setString(2, lastName);
-            stmt.setByte(3, age);
-            stmt.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO user (name, lastname, age) VALUES (?,?,?)");
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setByte(3, age);
+            preparedStatement.executeUpdate();
             System.out.println("User с именем — " + name + " добавлен в базу данных");
 
         } catch (SQLException e){
@@ -65,8 +65,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
         try {
 
-            Statement stmt = connection.createStatement();
-            stmt.executeUpdate("DELETE FROM `user`.`user` WHERE `id` = " + id);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM user WHERE `id` = " + id);
 
         } catch (SQLException e){
 
@@ -81,16 +81,16 @@ public class UserDaoJDBCImpl implements UserDao {
 
         try {
 
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM `user`.`user`;");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `user`.`user`;");
 
-            while (rs.next()) {
+            while (resultSet.next()) {
 
                 User user = new User();
-                user.setId(rs.getLong("id"));
-                user.setName(rs.getString("name"));
-                user.setLastName(rs.getString("lastName"));
-                user.setAge(rs.getByte("age"));
+                user.setId(resultSet.getLong("id"));
+                user.setName(resultSet.getString("name"));
+                user.setLastName(resultSet.getString("lastName"));
+                user.setAge(resultSet.getByte("age"));
                 users.add(user);
 
             }
