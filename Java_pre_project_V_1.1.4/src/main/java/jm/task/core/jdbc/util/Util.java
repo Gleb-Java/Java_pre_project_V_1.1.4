@@ -12,22 +12,30 @@ public class Util {
 
 
     private Util() {
+
         try {
+
             conn = DriverManager.getConnection(URL,USER,PASSWORD);
+
         } catch (SQLException e){
+
             e.printStackTrace();
         }
 
     }
 
     public static Util getInstance() {
+
         if (instance == null) {
+
             instance = new Util();
         }
+
         return instance;
     }
 
     public Connection getConn() {
+
         return conn;
     }
 

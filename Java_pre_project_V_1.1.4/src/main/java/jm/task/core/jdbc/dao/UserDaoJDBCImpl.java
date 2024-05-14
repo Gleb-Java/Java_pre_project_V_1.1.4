@@ -3,14 +3,13 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
+
+    private final Connection connection = Util.getInstance().getConn();
 
     public UserDaoJDBCImpl() {
 
@@ -18,12 +17,10 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
 
-        Util util = Util.getInstance();
-        Connection conn = util.getConn();
 
         try {
 
-            Statement stmt = conn.createStatement();
+            Statement stmt = connection.createStatement();
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `user`.`user` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(45) NOT NULL,`lastName` VARCHAR(45) NOT NULL,`age` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);");
 
         } catch (SQLException e){
@@ -33,13 +30,11 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
-        Util util = Util.getInstance();
-        Connection conn = util.getConn();
 
         try {
 
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("DROP TABLE IF EXISTS`user`.`user`;");
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("DROP TABLE `user`.`user`;");
 
         } catch (SQLException e){
 
@@ -49,13 +44,14 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        Util util = Util.getInstance();
-        Connection conn = util.getConn();
 
         try {
 
-            Statement stmt = conn.createStatement();
-            stmt.executeUpdate("INSERT INTO `user`.`user` (name, lastname, age) VALUES ('" + name + "', '" + lastName+ "', " + age +")");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO `user`.`user` (name, lastname, age) VALUES (?,?,?)");
+            stmt.setString(1, name);
+            stmt.setString(2, lastName);
+            stmt.setByte(3, age);
+            stmt.executeUpdate();
             System.out.println("User с именем — " + name + " добавлен в базу данных");
 
         } catch (SQLException e){
@@ -66,12 +62,10 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
-        Util util = Util.getInstance();
-        Connection conn = util.getConn();
 
         try {
 
-            Statement stmt = conn.createStatement();
+            Statement stmt = connection.createStatement();
             stmt.executeUpdate("DELETE FROM `user`.`user` WHERE `id` = " + id);
 
         } catch (SQLException e){
@@ -83,13 +77,11 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
 
-        Util util = Util.getInstance();
-        Connection conn = util.getConn();
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
 
         try {
 
-            Statement stmt = conn.createStatement();
+            Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM `user`.`user`;");
 
             while (rs.next()) {
