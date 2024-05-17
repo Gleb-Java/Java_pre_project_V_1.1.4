@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- Настройки подключения к базе данных -->
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/user</property>
+    <property name="hibernate.connection.username">javaPreProject</property>
+    <property name="hibernate.connection.password">javaPreProject</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+
+    <!-- Диалект базы данных -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+    <!-- Настройки пула соединений (опционально) -->
+    <property name="hibernate.connection.pool_size">5</property>
+    <property name="hibernate.connection.autocommit">true</property>
+    <property name="show_sql">true</property>
+
+
+  </session-factory>
+</hibernate-configuration>
