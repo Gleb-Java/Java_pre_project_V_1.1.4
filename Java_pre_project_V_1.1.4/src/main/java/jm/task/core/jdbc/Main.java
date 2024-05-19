@@ -12,14 +12,13 @@ public class Main {
     public static void main(String[] args) {
 
         UserService userService = new UserServiceImpl();
-
         userService.createUsersTable();
+        userService.saveUser("Roman","Bushelenkov", (byte) 24);
         userService.saveUser("Gleb", "Bushelenkov", (byte) 22);
         userService.saveUser("Pavel", "Chigoryaev", (byte) 23);
         userService.saveUser("Andrey", "Strogiy", (byte) 23);
         userService.saveUser("Polina", "Gasayeva", (byte) 21);
-        UserDaoHibernateImpl userDao = new UserDaoHibernateImpl();
-        userDao.saveUser("Roman","Bushelenkov", (byte) 24);
+
 
 
         List<User> userList = userService.getAllUsers();
@@ -27,6 +26,8 @@ public class Main {
         for (User users : userList) {
             System.out.println(users.toString());
         }
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
         //userService.dropUsersTable();
 
 

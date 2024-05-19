@@ -7,17 +7,19 @@
     <!-- Настройки подключения к базе данных -->
     <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/user</property>
-    <property name="hibernate.connection.username">javaPreProject</property>
-    <property name="hibernate.connection.password">javaPreProject</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">C5dKaZa8</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hbm2ddl.auto">update</property>
+    <property name="show_sql">true</property>
 
     <!-- Диалект базы данных -->
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
     <!-- Настройки пула соединений (опционально) -->
     <property name="hibernate.connection.pool_size">5</property>
     <property name="hibernate.connection.autocommit">true</property>
-    <property name="show_sql">true</property>
+
 
 
   </session-factory>
