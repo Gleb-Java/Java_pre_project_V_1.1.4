@@ -24,10 +24,11 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (Session session = sessionFactory.getCurrentSession()){
             session.beginTransaction();
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS user (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(45) NOT NULL,`lastName` VARCHAR(45) NOT NULL,`age` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);");
             session.getTransaction().commit();
             System.out.println("Table created");
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -45,7 +46,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.getTransaction().commit();
             System.out.println("Table dropped");
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -64,7 +65,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.getTransaction().commit();
             System.out.println("User с именем — " + name + " добавлен в базу данных");
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -80,7 +81,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.getTransaction().commit();
             System.out.println("User with id " + id + " removed");
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -98,7 +99,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.getTransaction().commit();
             System.out.println("Users list loaded");
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -114,7 +115,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createNativeQuery("DELETE FROM user").executeUpdate();
             System.out.println("Table cleaned");
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }

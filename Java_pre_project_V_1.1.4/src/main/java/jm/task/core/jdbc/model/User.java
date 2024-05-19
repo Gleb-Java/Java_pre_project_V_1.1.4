@@ -22,7 +22,7 @@ public class User {
     private String lastName;
 
     @Column(name = "age", nullable = false)
-    private Byte age;
+    private byte age;
 
     public User() {
 
