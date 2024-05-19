@@ -19,17 +19,7 @@ public class Main {
         userService.saveUser("Pavel", "Chigoryaev", (byte) 23);
         userService.saveUser("Andrey", "Strogiy", (byte) 23);
         userService.saveUser("Polina", "Gasayeva", (byte) 21);
-        User testUser = new User("Ivan", "Ivanov", (byte) 5);
 
-        User user = userService.getAllUsers().get(0);
-        System.out.println(user);
-
-        if (!testUser.getName().equals(user.getName())
-                || !testUser.getLastName().equals(user.getLastName())
-                || !Objects.equals(testUser.getAge(), user.getAge())
-        ) {
-           System.out.println("Not OK");
-        }
         List<User> userList = userService.getAllUsers();
 
         for (User users : userList) {
@@ -37,7 +27,6 @@ public class Main {
         }
         userService.cleanUsersTable();
         userService.dropUsersTable();
-        //userService.dropUsersTable();
 
 
     }
