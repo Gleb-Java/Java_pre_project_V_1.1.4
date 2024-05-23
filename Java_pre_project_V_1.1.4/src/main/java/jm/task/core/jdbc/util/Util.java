@@ -26,12 +26,22 @@ public class Util {
 
     public static Util getInstance() {
 
-        if (instance == null) {
+        Util localInstance = instance;
 
-            instance = new Util();
+        if (localInstance == null) {
+
+            synchronized (Util.class) {
+
+                localInstance = instance;
+
+                if (localInstance == null) {
+
+                    instance= localInstance = new Util();
+                }
+            }
         }
 
-        return instance;
+        return localInstance;
     }
 
     public Connection getConn() {
