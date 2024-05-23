@@ -24,7 +24,11 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (Session session = sessionFactory.getCurrentSession()){
             session.beginTransaction();
-            session.createSQLQuery("CREATE TABLE IF NOT EXISTS user (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(45) NOT NULL,`lastName` VARCHAR(45) NOT NULL,`age` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);");
+            session.createNativeQuery("CREATE TABLE IF NOT EXISTS user (`id` INT NOT NULL AUTO_INCREMENT," +
+                                                                        "`name` VARCHAR(45) NOT NULL," +
+                                                                        "`lastName` VARCHAR(45) NOT NULL," +
+                                                                        "`age` INT NOT NULL,PRIMARY KEY (`id`)," +
+                                                                        "UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);").executeUpdate();
             session.getTransaction().commit();
             System.out.println("Table created");
 
